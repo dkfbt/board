@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace = "MemberSpace">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="memberVO" type="main.service.MemberVO"/>
+	
+	<insert id="memberDAO.insertMember">
+	
+		INSERT INTO member(
+		
+			userid, pw, name, gender, birth, phone, zipcode, address
+		
+		)
+		 
+	    VALUES(
+	    
+	    	#userid#, #pw#, #name#, #gender#, #birth#, #phone#, #zipcode#, #address#
+	    )
+	
+	</insert>
+	
+	<select id="memberDAO.selectMemberIdCheck" resultClass="java.lang.Integer">
+	
+		select count(*) from member
+		where userid = #userid#
+	
+	</select>
+	
+	<select id="memberDAO.selectPostList" resultClass="egovMap">
+	
+		select '[' || a1 || ']' ||
+		       ' ' || a2 || 
+		       ' ' || a3 ||
+		       ' ' || a4 ||
+		       ' ' || a5 ||
+		       ' ' || a6 ||
+		       ' ' || a7 ||
+		       ' ' || a8 
+		       as address 
+		from post
+		where a4 like '%' || #dong# || '%'
+		or a5 like '%' || #dong# || '%'
+	
+	</select>
+	
+	<select id="memberDAO.selectMemberCount" resultClass="java.lang.Integer">
+	
+		select count(*) from member
+		where userid = #userid# and pw = #pw#
+	
+	</select>
+	
+	<select id="memberDAO.selectTheMember" resultClass="memberVO">
+	
+		select * from member
+		where userid = #userid#
+	
+	</select>
+	
+	<update id="memberDAO.updateMember">
+	
+		update member
+		set pw = #pw#,
+		    phone = #phone#,
+		    zipcode = #zipcode#,
+		    address = #address#
+		where userid = #userid# and name = #name#
+	</update>
+
+</sqlMap>

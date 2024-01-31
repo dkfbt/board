@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="DeptSpace">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="deptVO" type="egovframework.example.sample.service.DeptVO"/>
+	
+	<insert id="deptDAO.insertDept">
+	
+	
+		insert into dept(deptno, deptname, deptloc) 
+		values(#deptno#, #deptname#, #deptloc#)
+	</insert>
+	
+	<select id="deptDAO.selectDeptList" resultClass="egovMap">
+	
+		select deptno, deptname, deptloc from dept
+	
+	</select>
+	
+	<select id="deptDAO.selectDeptDetail" resultClass="deptVO">
+	
+		select deptno, deptname, deptloc from dept
+		where deptno = #deptno#
+	
+	</select>
+	
+	<delete id="deptDAO.deleteDept">
+		
+		delete from dept
+		where deptno = #deptno#
+	</delete>
+	
+	<update id="deptDAO.updateDept">
+	
+		update dept
+		set deptname = #deptname#, deptloc = #deptloc#
+		where deptno = #deptno#
+	
+	</update>
+	
+	
+</sqlMap>
